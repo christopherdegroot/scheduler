@@ -3,61 +3,23 @@ import axios from "axios";
 import "components/Application.scss";
 import DayList from "./DayList";
 import Appointment from "components/Appointment"
-
-const appointments = [
-  {
-    id: 1,
-    time: "12pm",
-  },
-  {
-    id: 2,
-    time: "1pm",
-    interview: {
-      student: "Lydia Miller-Jones",
-      interviewer:{
-        id: 3,
-        name: "Sylvia Palmer",
-        avatar: "https://i.imgur.com/LpaY82x.png",
-      }
-    }
-  },
-  {
-    id: 3,
-    time: "2pm",
-  },
-  {
-    id: 4,
-    time: "3pm",
-    interview: {
-      student: "Archie Andrews",
-      interviewer:{
-        id: 4,
-        name: "Cohana Roy",
-        avatar: "https://i.imgur.com/FK8V841.jpg",
-      }
-    }
-  },
-  {
-    id: 5,
-    time: "4pm",
-  }
-];
-
+import { getAppointmentsForDay } from "../helpers/selectors"
 
 export default function Application(props) {
   const [state, setState] = useState({
     day: "Monday",
     days: [],
+    appointments: {}
   });
 
-  const setDay = day => setState({ ...state, day:day });
-
-    const setDays = (days) => {
-      setState(prev => setState({...prev, days}));
-    }
-
   
-  const parsedAppointments = appointments.map(appointment => 
+  const setDay = day => setState({ ...state, day:day });
+  
+  
+  
+  const dailyAppointments = getAppointmentsForDay(state, state.day)
+  
+  const parsedAppointments = dailyAppointments.map(appointment => 
     <Appointment
     key={appointment.id}
     {...appointment} 
@@ -66,11 +28,18 @@ export default function Application(props) {
     
     useEffect(()=>{
       const daysUrl = "/api/days"
-      axios.get(daysUrl)
-    .then((response)=>{
-      setDays([...response.data])
-    })
-  }, [])
+      const interviewersUrl = "/api/interviewers"
+      const appointmentsUrl = "/api/appointments"
+      Promise.all([
+        axios.get(daysUrl),
+        axios.get(interviewersUrl),
+        axios.get(appointmentsUrl)
+      ]).then((all) => {
+        const [days, interviews, appointments] = all;
+        setState(prev => ({...prev, days: days.data, appointments: appointments.data}))
+      })
+    }, [])
+    
 
 
   return (
