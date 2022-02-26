@@ -153,7 +153,7 @@ storiesOf("Appointment", module)
   .add("Header", ()=>(
     <Header time="12pm" />))
   .add("Empty", () => <Empty onAdd={action("onAdd")}/>)
-  .add("Show", ()=> <Show onEdit={action("onEdit")} onDelete={action("onDelete")} />)
+  .add("Show", ()=> <Show interview={{ student: "Lydia Miller-Jones", interviewer }}  onEdit={action("onEdit")} onDelete={action("onDelete")} />)
   .add("Confirm", ()=> <Confirm message="Delete the Appointment?" onConfirm={action("onConfirm")} onCancel={action("onCancel")} />)
   .add("Status", ()=> <Status message="Deleting"/>)
   .add("Error", ()=> <Error message="Could not delete appointment" onClose={action("onClose")} />)
@@ -171,6 +171,8 @@ storiesOf("Appointment", module)
         id={1}
         time="4pm"
         interview={{ student: "Lydia Miller-Jones", interviewer }}
+        onDelete={action("onDelete")}
+        onEdit={action("onEdit")}
       />
       <Appointment time="5pm" />
     </Fragment>
