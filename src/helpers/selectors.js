@@ -19,6 +19,11 @@ export function getAppointmentsForDay(state, day) {
   return filteredAppointments;
 }
 
+
+//
+// -----------------------------------------------------------------------------------------------------
+//getInterview
+
 export function getInterview(state, interview) {
   if (!interview) return null;
   // return null if interviews do not exist
@@ -31,4 +36,39 @@ export function getInterview(state, interview) {
   
   // return a new object containing the interview data
   return filteredInterviews
+}
+
+
+//
+//-----------------------------------------------------------------------------------------------------
+// Get interviewers for a day from state and day
+export function getInterviewersForDay(state, day) {
+  
+  // use getappointmentbyday function to grab necessary data
+    const filteredDays = state.days.filter(days => days.name === day)
+    if(state.days.length ===0 || filteredDays.length===0) {
+      return [];
+    } 
+  
+      const appointmentsFromDays = filteredDays[0].appointments;
+    
+    const filteredAppointments = [];
+    
+    for(const appointment of appointmentsFromDays) {
+      filteredAppointments.push(state.appointments[appointment]);
+    }
+    
+    
+    let testArray = [];
+
+    for (let i = 0; i < filteredAppointments.length; i++) {
+      if (filteredAppointments[i].interview === null) {} else {
+      testArray.push(state.interviewers[filteredAppointments[i].interview.interviewer])
+      }
+    }
+
+    // use data from getappointmentbyday to use as key to access which interviewers are set for a day
+   
+    return testArray;
+
 }
