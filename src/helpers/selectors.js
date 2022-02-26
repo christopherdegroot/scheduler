@@ -18,3 +18,17 @@ export function getAppointmentsForDay(state, day) {
   }
   return filteredAppointments;
 }
+
+export function getInterview(state, interview) {
+  if (!interview) return null;
+  // return null if interviews do not exist
+ 
+  
+  // pass it an object that contains the interviewer
+  const filteredInterviews = {}
+  filteredInterviews.student = interview.student
+  filteredInterviews.interviewer = state.interviewers[interview.interviewer]
+  
+  // return a new object containing the interview data
+  return filteredInterviews
+}
