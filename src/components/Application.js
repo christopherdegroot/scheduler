@@ -6,6 +6,7 @@ import Appointment from "components/Appointment"
 import { getAppointmentsForDay, getInterview } from "../helpers/selectors"
 
 export default function Application(props) {
+  // setting state
   const [state, setState] = useState({
     day: "Monday",
     days: [],
@@ -13,13 +14,13 @@ export default function Application(props) {
     interviewers: {}
   });
 
-  
+  // declaring setDay function
   const setDay = day => setState({ ...state, day:day });
   
-  
-  
+  // get the daily appointments
   const dailyAppointments = getAppointmentsForDay(state, state.day)
   
+  //parse daily appointments to get the interviews for that day, then set the appointments for that day with the return data
   const parsedAppointments = dailyAppointments.map(appointment => {
     const interview = getInterview(state, appointment.interview)
 
@@ -32,7 +33,7 @@ export default function Application(props) {
       );
   });
     
-    
+    // side effect for setting state axios get request then setting state with a promise.all
     useEffect(()=>{
       const daysUrl = "/api/days"
       const interviewersUrl = "/api/interviewers"
@@ -47,6 +48,7 @@ export default function Application(props) {
       })
     }, [])
     
+  // return portion of component: decides layout and state passed to children  
   return (
     <main className="layout">
       <section className="sidebar">
