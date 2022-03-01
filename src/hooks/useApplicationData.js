@@ -56,6 +56,7 @@ export default function useApplicationData() {
     };
 
     const dayOfWeek = findDay(state.day);
+
     let day = {
       ...state.days[dayOfWeek],
       spots: state.days[dayOfWeek],
