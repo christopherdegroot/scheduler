@@ -4,7 +4,6 @@ import InterviewerList from "components/InterviewerList";
 import InterviewerListItem from "components/InterviewerListItem";
 
 export default function Form(props) {
-  console.log('logging props', props)
   const [student, setStudent] = useState(props.student || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
 
@@ -27,8 +26,6 @@ export default function Form(props) {
             value={student}
             type="text"
             placeholder={"Enter Student Name"}
-            onSave={props.onSave}
-            onCancel={cancel}
             onChange={(event)=> setStudent(event.target.value)} 
             />
         </form>
