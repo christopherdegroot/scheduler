@@ -50,7 +50,7 @@ export default function Application(props) {
       .then(res=>setState({...state, appointments}))
   }
 
-  function cancelInterview(id, interview) {
+  function cancelInterview(id) {
     const appointment = {
       ...state.appointments[id],
       interview: null
@@ -61,10 +61,13 @@ export default function Application(props) {
       [id]: appointment
     };
 
-    const putURL = `/api/appointments/${id}`
-    return axios
-      .put(putURL, {interview})
-      .then(res=>setState({...state, appointments}))
+    const deleteURL = `/api/appointments/${id}`
+    return axios.delete(deleteURL)
+    .then((res) => {
+        setState({...state, appointments})
+        console.log('set state finished')
+      })
+    // setState({...state, appointments})
   }
 
 
@@ -73,7 +76,9 @@ export default function Application(props) {
   
   // get the daily appointments
   const dailyAppointments = getAppointmentsForDay(state, state.day)
-  
+
+
+  console.log('logging dailyAppointments in Application', dailyAppointments);
   //parse daily appointments to get the interviews for that day, then set the appointments for that day with the return data
   const parsedAppointments = dailyAppointments.map(appointment => {
     const interview = getInterview(state, appointment.interview)

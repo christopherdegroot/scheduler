@@ -2,7 +2,6 @@ import React from "react";
 import "components/Appointment/styles.scss";
 import useVisualMode from "hooks/useVisualMode";
 
-import Header from "./Header";
 import Show from "./Show";
 import Empty from "./Empty";
 import Form from "./Form";
@@ -32,10 +31,15 @@ export default function Appointment(props) {
           transition(SHOW)
         })
     }
+    console.log('Appointment = ',props.id, "props.interview = ", props.interview, "mode = ", mode)
 
-    function deleteInterview(name, interviewer) {
-      props.cancelInterview(props.id, interviewer)
-      console.log('trying to delete, logging name and interviewer', props.id, interviewer)
+    function remove(interview) {
+      // props.id is the interview slot
+      props.cancelInterview(props.id)
+        .then(res=>{
+          console.log('DELETED', props.id)
+          transition(EMPTY)
+          })
     }
 
 
@@ -44,11 +48,11 @@ export default function Appointment(props) {
     <article className="appointment">
       <header>{props.time}</header>
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
-      {mode === SHOW && (
+      {mode === SHOW && props.interview && (
         <Show
           student={props.interview.student}
           interviewer={props.interview.interviewer}
-          onDelete={deleteInterview}
+          onDelete={remove}
           />
           )}
       {mode === CREATE && <Form 

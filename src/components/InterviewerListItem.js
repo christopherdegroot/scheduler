@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import classNames from "classnames";
 
 import "components/InterviewerListItem.scss";
 
 export default function InterviewerListItem(props) {
-  const {avatar, id, name, selected} = props;
+  const {avatar, name, selected} = props;
 
   const listClass = classNames({
     "interviewers__item":props,

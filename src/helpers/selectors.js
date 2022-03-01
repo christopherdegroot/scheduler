@@ -3,20 +3,17 @@
 export function getAppointmentsForDay(state, day) {
   
   // filter days, only grab days that match the day name given in function parameters
-  const filteredDays = state.days.filter(days => days.name === day)
-  if(state.days.length ===0 || filteredDays.length===0) return [];
-
-  // get the appointments from the above filter
-  const appointmentsFromDays = filteredDays[0].appointments;
+  const dayObj = state.days.find(days => days.name === day)
+  if(!dayObj) return [];
   
   // create empty array to push to
-  const filteredAppointments = [];
+  const results = [];
 
   // loop through appointments, push each state.appointment into the filter that matches the [appointment] key for each loop iteration
-  for(const appointment of appointmentsFromDays) {
-    filteredAppointments.push(state.appointments[appointment]);
+  for(const id of dayObj.appointments) {
+    results.push(state.appointments[id]);
   }
-  return filteredAppointments;
+  return results;
 }
 
 
