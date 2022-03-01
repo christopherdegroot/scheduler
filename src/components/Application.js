@@ -13,72 +13,15 @@ import "components/Application.scss";
 
 export default function Application(props) {
   // setting state
-  const [state, setState] = useState({
-    day: "Monday",
-    days: [],
-    appointments: {},
-    interviewers: {},
-  });
-
-  // side effect for setting state axios get request then setting state with a promise.all
-  useEffect(() => {
-    const daysUrl = "/api/days";
-    const interviewersUrl = "/api/interviewers";
-    const appointmentsUrl = "/api/appointments";
-    Promise.all([
-      axios.get(daysUrl),
-      axios.get(interviewersUrl),
-      axios.get(appointmentsUrl),
-    ]).then((all) => {
-      const [days, interviewers, appointments] = all;
-      setState((prev) => ({
-        ...prev,
-        days: days.data,
-        appointments: appointments.data,
-        interviewers: interviewers.data,
-      }));
-    });
-  }, []);
+  const {
+    state,
+    setDay,
+    bookInterview,
+    cancelInterview,
+  } = useApplicationData();
 
   // get interviewers for day to pass to appointment
   const interviewersForDay = getInterviewersForDay(state, state.day);
-
-  // book an interview function
-  function bookInterview(id, interview) {
-    const appointment = {
-      ...state.appointments[id],
-      interview: { ...interview },
-    };
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment,
-    };
-
-    const putURL = `/api/appointments/${id}`;
-    return axios
-      .put(putURL, { interview })
-      .then((res) => setState({ ...state, appointments }));
-  }
-
-  function cancelInterview(id) {
-    const appointment = {
-      ...state.appointments[id],
-      interview: null,
-    };
-
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment,
-    };
-
-    const deleteURL = `/api/appointments/${id}`;
-    return axios.delete(deleteURL).then((res) => {
-      setState({ ...state, appointments });
-    });
-  }
-
-  // declaring setDay function
-  const setDay = (day) => setState({ ...state, day: day });
 
   // get the daily appointments
   const dailyAppointments = getAppointmentsForDay(state, state.day);
