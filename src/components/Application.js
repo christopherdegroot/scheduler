@@ -3,7 +3,7 @@ import axios from "axios";
 import "components/Application.scss";
 import DayList from "./DayList";
 import Appointment from "components/Appointment"
-import { getAppointmentsForDay, getInterview } from "../helpers/selectors"
+import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "../helpers/selectors"
 
 export default function Application(props) {
   // setting state
@@ -13,6 +13,60 @@ export default function Application(props) {
     appointments: {},
     interviewers: {}
   });
+
+  // side effect for setting state axios get request then setting state with a promise.all
+  useEffect(()=>{
+    const daysUrl = "/api/days"
+    const interviewersUrl = "/api/interviewers"
+    const appointmentsUrl = "/api/appointments"
+    Promise.all([
+      axios.get(daysUrl),
+      axios.get(interviewersUrl),
+      axios.get(appointmentsUrl)
+    ]).then((all) => {
+      const [days, interviewers, appointments] = all;
+      setState(prev => ({...prev, days: days.data, appointments: appointments.data, interviewers: interviewers.data}))
+    })
+  }, [])
+
+  // get interviewers for day to pass to appointment
+  const interviewersForDay = getInterviewersForDay(state, state.day)
+
+  // book an interview function
+  function bookInterview(id, interview) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+    console.log('logging interview', interview)
+
+    const putURL = `/api/appointments/${id}`
+    return axios
+      .put(putURL, {interview})
+      .then(res=>setState({...state, appointments}))
+  }
+
+  function cancelInterview(id, interview) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: null
+    };
+
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+
+    const putURL = `/api/appointments/${id}`
+    return axios
+      .put(putURL, {interview})
+      .then(res=>setState({...state, appointments}))
+  }
+
 
   // declaring setDay function
   const setDay = day => setState({ ...state, day:day });
@@ -27,26 +81,15 @@ export default function Application(props) {
       return (
         <Appointment
           key={appointment.id}
-          {...appointment} 
+          {...appointment}
           interview={interview}
+          interviewers={interviewersForDay}
+          bookInterview={bookInterview}
+          cancelInterview={cancelInterview}
         />
       );
   });
     
-    // side effect for setting state axios get request then setting state with a promise.all
-    useEffect(()=>{
-      const daysUrl = "/api/days"
-      const interviewersUrl = "/api/interviewers"
-      const appointmentsUrl = "/api/appointments"
-      Promise.all([
-        axios.get(daysUrl),
-        axios.get(interviewersUrl),
-        axios.get(appointmentsUrl)
-      ]).then((all) => {
-        const [days, interviewers, appointments] = all;
-        setState(prev => ({...prev, days: days.data, appointments: appointments.data, interviewers: interviewers.data}))
-      })
-    }, [])
     
   // return portion of component: decides layout and state passed to children  
   return (
