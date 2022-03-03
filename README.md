@@ -24,6 +24,11 @@ Install dependencies with `npm install`.
 
 Fork and clone the [scheduler-api](https://github.com/lighthouse-labs/scheduler-api) into a new directory, then follow the README.md instructions within.
 
+## Dependencies
+
+- axios
+- @testing-library/react-hooks
+- react-test-renderer
 
 ## Running Webpack Development Server
 
@@ -48,3 +53,5 @@ npm test
 ```sh
 npm run cypress
 ```
+
+
