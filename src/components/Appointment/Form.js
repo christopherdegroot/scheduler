@@ -21,7 +21,6 @@ export default function Form(props) {
     props.onCancel()
   }
 
-  console.log(props.interviewer);
   // validates state by checking whether student name is entered, and interviewer is selected
   function validate() {
     if (student === "") {

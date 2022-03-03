@@ -33,14 +33,14 @@ export default function Appointment(props) {
       student: name,
       interviewer,
     };
-    transition(SAVING, true);
+    transition(SAVING);
     props
       .bookInterview(props.id, interview)
       .then((res) => {
         transition(SHOW);
       })
       .catch((res) => {
-        transition(ERROR_SAVE);
+        transition(ERROR_SAVE, true);
       });
   }
 
@@ -82,7 +82,7 @@ export default function Appointment(props) {
         />
       )}
       {mode === DELETING && <Status message={"Deleting"} />}
-      {mode === EDITING && (
+      {mode === EDITING && props.interviewer && (
         <Form
           interviewers={props.interviewers}
           interviewer={props.interview.interviewer.id}
