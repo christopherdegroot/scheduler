@@ -28,14 +28,21 @@ Install dependencies with `npm install`.
 npm start
 ```
 
+
+## Running Storybook Visual Testbed
+
+```sh
+npm run storybook
+```
+
 ## Running Jest Test Framework
 
 ```sh
 npm test
 ```
 
-## Running Storybook Visual Testbed
+## Running Cypress Test Framework
 
 ```sh
-npm run storybook
+npm run cypress
 ```
