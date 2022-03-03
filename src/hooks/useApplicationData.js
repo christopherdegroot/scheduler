@@ -33,6 +33,7 @@ export default function useApplicationData() {
     });
   }, []);
 
+  // function to find day ID based on day name to be used to update spots
   function findDay(day) {
     const daysOfWeek = {
       Monday: 0,
@@ -55,28 +56,35 @@ export default function useApplicationData() {
       [id]: appointment,
     };
 
+    // grab day ID based on day name
     const dayOfWeek = findDay(state.day);
 
+    // create new day with updated spots
     let day = {
       ...state.days[dayOfWeek],
       spots: state.days[dayOfWeek],
     };
 
+    // if interview is deleted, spots is reduced by one
     if (!state.appointments[id].interview) {
       day = {
         ...state.days[dayOfWeek],
         spots: state.days[dayOfWeek].spots - 1,
       };
     } else {
+      // otherwise spots is updated to current value
       day = {
         ...state.days[dayOfWeek],
         spots: state.days[dayOfWeek].spots,
       };
     }
 
+    // created new days array to update and ensure not mutating state directly 
     let days = state.days;
+    // update days array at the key of current day ID with updated day object
     days[dayOfWeek] = day;
 
+    //axios put request to update state
     const putURL = `/api/appointments/${id}`;
     return axios
       .put(putURL, { interview })
@@ -84,26 +92,33 @@ export default function useApplicationData() {
   }
 
   function cancelInterview(id) {
+    // create new appointment object where interview is set to null
     const appointment = {
       ...state.appointments[id],
       interview: null,
     };
 
+    // create new appointments object with spread appointments data, then update the key where id matches with above created appointment with interview set to null
     const appointments = {
       ...state.appointments,
       [id]: appointment,
     };
 
+    // find day ID based off state.day(day name)
     const dayOfWeek = findDay(state.day);
 
+    // updates day with +1 to value of spots when an interview is cancelled
     const day = {
       ...state.days[dayOfWeek],
       spots: state.days[dayOfWeek].spots + 1,
     };
-
+    
+     // created new days array to update and ensure not mutating state directly 
     let days = state.days;
+     // update days array at the key of current day ID with updated day object
     days[dayOfWeek] = day;
 
+    // axios delete request to delete interview
     const deleteURL = `/api/appointments/${id}`;
     return axios.delete(deleteURL).then((res) => {
       setState({ ...state, appointments, days });

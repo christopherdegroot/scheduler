@@ -1,5 +1,6 @@
 import React from "react";
 
+// Status component for Appointment
 export default function Status(props) {
   return (
     <main className="appointment__card appointment__card--status">

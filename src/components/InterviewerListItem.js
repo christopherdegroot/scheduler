@@ -3,6 +3,7 @@ import classNames from "classnames";
 
 import "components/InterviewerListItem.scss";
 
+// InterviewerListItem component
 export default function InterviewerListItem(props) {
   const {avatar, name, selected} = props;
 
@@ -16,7 +17,6 @@ export default function InterviewerListItem(props) {
     <li 
       className={listClass}
       onClick={props.setInterviewer}
-    
     >
       <img
         className="interviewers__item-image"

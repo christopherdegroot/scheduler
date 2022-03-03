@@ -9,7 +9,9 @@ import Status from "./Status";
 import Confirm from "./Confirm";
 import Error from "./Error";
 
+// Appointment component
 export default function Appointment(props) {
+  // declaring variables for conditional statements
   const EMPTY = "EMPTY";
   const SHOW = "SHOW";
   const CREATE = "CREATE";
@@ -20,6 +22,7 @@ export default function Appointment(props) {
   const ERROR_SAVE = "ERROR_SAVE";
   const ERROR_DELETE = "ERROR_DELETE";
 
+  // custom hook for what visual mode to use
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
@@ -41,6 +44,7 @@ export default function Appointment(props) {
       });
   }
 
+  // passes to form component to delete when onConfirm button is clicked inside confirmation window
   function destroy(interview) {
     // props.id is the interview slot
     transition(DELETING, true);

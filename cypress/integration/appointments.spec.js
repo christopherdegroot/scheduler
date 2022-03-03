@@ -1,3 +1,6 @@
+// Cypress tests for appointments
+
+// tests for booking an appointment
 describe("Should book an Interview", () => {
     it("should reset the API and visit root", () => {
       cy.request("GET", "/api/debug/reset")
@@ -24,6 +27,7 @@ describe("Should book an Interview", () => {
     });
   });
 
+  // tests for editing an appointment
   describe("Should edit an interview", () => {
     it("should edit an interview", () => {
       cy.get("[alt=Edit]")
@@ -41,6 +45,7 @@ describe("Should book an Interview", () => {
 
   });
 
+  // tests for deleting an appointment
   describe("Should delete an interview", ()=>{
     it("should cancel an interview", () => {
       cy.get("[alt=Delete]")

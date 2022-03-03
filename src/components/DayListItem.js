@@ -3,6 +3,7 @@ import classNames from "classnames";
 
 import "components/DayListItem.scss";
 
+// dayListItem component
 export default function DayListItem(props) {
   const { name, spots } = props;
 

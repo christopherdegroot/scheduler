@@ -2,7 +2,7 @@ import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "help
 
 
 
-
+// sample data -- updated to be in line with how API data is laid out
 const state = {
   interviewers: {
     1: {
