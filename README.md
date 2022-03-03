@@ -13,7 +13,8 @@ This project built technical skills for React, Axios, Storybook, Jest, Webpack D
 
 ## Final Product
 
-Desktop version of website showing React functionality.
+Full demo of all React component functions: navigating days, selecting days, adding, editing, and deleting appointments. All changes update state and persist through refreshes.
+
 !["Desktop version of website"](https://raw.githubusercontent.com/christopherdegroot/scheduler/master/docs/Scheduler.gif)
 
 
