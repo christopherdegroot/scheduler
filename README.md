@@ -14,7 +14,7 @@ This project built technical skills for React, Axios, Storybook, Jest, Webpack D
 ## Final Product
 
 Desktop version of website showing React functionality.
-!["Desktop version of website"](https://raw.githubusercontent.com/christopherdegroot/scheduler/master/docs/ezgif.com-gif-maker.gif)
+!["Desktop version of website"](https://raw.githubusercontent.com/christopherdegroot/scheduler/master/docs/Scheduler.gif)
 
 
 ## Setup
