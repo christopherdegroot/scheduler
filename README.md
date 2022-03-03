@@ -14,16 +14,7 @@ This project built technical skills for React, Axios, Storybook, Jest, Webpack D
 ## Final Product
 
 Desktop version of website, default view of the web app on desktop browsers.
-!["Desktop version of website"](https://raw.githubusercontent.com/christopherdegroot/tweeter/master/docs/Desktop.PNG)
-
-Mobile-ready, responsive design. Page automatically re-arranges content of web page when below 1024 pixels, changing the layout to an improved format for mobile users.
-!["Mobile Version"](https://raw.githubusercontent.com/christopherdegroot/tweeter/master/docs/Mobile.PNG)
-
-Friendly UX through jQuery and CSS - Character counter (turns red when over the limit!), Tweet container event listeners to add box-shadow when mouse is over an element, and icons change colours.
-!["Features"](https://raw.githubusercontent.com/christopherdegroot/tweeter/master/docs/features.png)
-
-Error Handling - Tweets that are too long or empty are flagged for the user - Character counter also helps know how many characters you are at, or over the limit
-!["Error Handling - Tweets that are too long or empty are flagged for the user - Character counter also helps know how many characters you are at, or over the limit"](https://raw.githubusercontent.com/christopherdegroot/tweeter/master/docs/ErrorHandling.PNG)
+!["Desktop version of website"](https://github.com/christopherdegroot/scheduler/blob/master/docs/ezgif.com-gif-maker%20(1).mp4)
 
 
 ## Setup
