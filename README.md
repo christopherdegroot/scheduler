@@ -22,12 +22,14 @@ Full demo of all React component functions: navigating days, selecting days, add
 
 Install dependencies with `npm install`.
 
+Fork and clone the [scheduler-api](https://github.com/lighthouse-labs/scheduler-api) into a new directory, then follow the README.md instructions within.
+
+
 ## Running Webpack Development Server
 
 ```sh
 npm start
 ```
-
 
 ## Running Storybook Visual Testbed
 
