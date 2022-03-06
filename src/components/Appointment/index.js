@@ -82,7 +82,7 @@ export default function Appointment(props) {
         />
       )}
       {mode === DELETING && <Status message={"Deleting"} />}
-      {mode === EDITING && props.interviewer && (
+      {mode === EDITING && (
         <Form
           interviewers={props.interviewers}
           interviewer={props.interview.interviewer.id}
